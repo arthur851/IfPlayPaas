@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Layout from "./components/Layout"
 import Inicio from "./pages/Inicio"
@@ -19,47 +18,26 @@ import Historico from "./pages/Historico"
 import Ranking from "./pages/Ranking"
 import Configuracoes from "./pages/Configuracoes"
 export default function App(){
-    const [quizzes,setQuizzes] = useState([])
-    const [quizAtivo,setQuizAtivo] = useState(null)
-    const [usuario,setUsuario] = useState(null)
-    const [historico,setHistorico] = useState([])
-    const [jogadores,setJogadores] = useState([])
-    function criarQuiz(quiz){
-        setQuizzes(anterior=>[...anterior,quiz])
-        setQuizAtivo(quiz)
-    }
-    function salvarPergunta(pergunta){
-        setQuizAtivo(anterior=>{
-            if(!anterior) return anterior
-            const atualizado = { ...anterior, perguntas: [...anterior.perguntas,pergunta] }
-            setQuizzes(lista=>lista.map(quiz=>quiz.id===atualizado.id?atualizado:quiz))
-            return atualizado
-        })
-    }
-    function responder(resultado){
-        if(!resultado.correta) return
-        setHistorico(anterior=>[...anterior])
-    }
     return(
         <BrowserRouter>
             <Routes>
                 <Route element={<Layout/>}>
                     <Route path="/" element={<Inicio/>}/>
-                    <Route path="/login" element={<Login onLogin={setUsuario}/>}/>
-                    <Route path="/cadastro" element={<Cadastro onCadastrar={setUsuario}/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/cadastro" element={<Cadastro/>}/>
                     <Route path="/dashboard" element={<Dashboard/>}/>
-                    <Route path="/criar-quiz" element={<CriarQuiz onCriarQuiz={criarQuiz}/>}/>
-                    <Route path="/adicionar-perguntas" element={<AdicionarPerguntas onSalvarPergunta={salvarPergunta}/>}/>
+                    <Route path="/criar-quiz" element={<CriarQuiz/>}/>
+                    <Route path="/adicionar-perguntas" element={<AdicionarPerguntas/>}/>
                     <Route path="/entrar-jogo" element={<EntrarJogo/>}/>
-                    <Route path="/sala-espera" element={<SalaEspera participantes={jogadores}/>}/>
-                    <Route path="/jogar" element={<Jogar perguntas={quizAtivo?.perguntas ?? []} onResponder={responder}/>}/>
+                    <Route path="/sala-espera" element={<SalaEspera/>}/>
+                    <Route path="/jogar" element={<Jogar/>}/>
                     <Route path="/resultado" element={<Resultado/>}/>
                     <Route path="/recuperar-senha" element={<RecuperarSenha/>}/>
-                    <Route path="/meus-quizzes" element={<MeusQuizzes quizzes={quizzes}/>}/>
-                    <Route path="/visualizar-quiz/:id" element={<VisualizarQuiz quizzes={quizzes}/>}/>
-                    <Route path="/perfil" element={<Perfil usuario={usuario ?? {}} onAtualizarPerfil={setUsuario}/>}/>
-                    <Route path="/historico" element={<Historico historico={historico}/>}/>
-                    <Route path="/ranking" element={<Ranking jogadores={jogadores}/>}/>
+                    <Route path="/meus-quizzes" element={<MeusQuizzes/>}/>
+                    <Route path="/visualizar-quiz" element={<VisualizarQuiz/>}/>
+                    <Route path="/perfil" element={<Perfil/>}/>
+                    <Route path="/historico" element={<Historico/>}/>
+                    <Route path="/ranking" element={<Ranking/>}/>
                     <Route path="/configuracoes" element={<Configuracoes/>}/>
                 </Route>
             </Routes>

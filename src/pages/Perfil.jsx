@@ -1,16 +1,12 @@
-export default function Perfil({ usuario = {}, onAtualizarPerfil }){
-    function salvar(event){
-        event.preventDefault()
-        onAtualizarPerfil?.(Object.fromEntries(new FormData(event.currentTarget)))
-    }
+export default function Perfil(){
     return(
         <section className="form-box">
             <h1>Meu perfil</h1>
-            <form onSubmit={salvar}>
-                <label>Nome</label>
-                <input name="nome" defaultValue={usuario.nome ?? ""} required/>
-                <label>E-mail</label>
-                <input name="email" type="email" defaultValue={usuario.email ?? ""} required/>
+            <form>
+                <label htmlFor="nome">Nome</label>
+                <input type="text" id="nome" name="nome" required/>
+                <label htmlFor="email">E-mail</label>
+                <input type="email" id="email" name="email" required/>
                 <button className="botao" type="submit">Salvar alterações</button>
             </form>
         </section>
